@@ -88,7 +88,7 @@ assetic:
 - `bundles: [ AppBundle ]` Add name of your bundles to the `[]` to enable Assetic serves to your bundles
 - `%kernel.root_dir%` is your project's root directory
 - `node_modules` is an auto-generated directory while installing with NodeJS
-- `apply_to` Compile coffeescript files that suffix with `.coffee` to javascript
+- `apply_to` Compiles coffeescripts(any files suffix with `.coffee`) into javascripts
 
 ### Copy assets from `src` to `web` 
 Run
@@ -122,13 +122,15 @@ Snippet from `src/AppBundle/Resources/views/default/index.html.twig`
     {% endjavascripts %}
 ```
 
-- `filter="cssrewrite, scssphp, ?uglifycss"` is a filter chain just like `pipeline` in Linux that the output from previous will as input being passed to next 
+- Files wrapped inside `stylesheets` or `javascripts` code block will be packed output after running `php app/console assetic:dump --env=prod` command
 
-- `?uglifycss` and `?uglifyjs2` disable minification in dev mode but works in prod mode
+- `filter="cssrewrite, scssphp, ?uglifycss"` is a filter chain just like `pipeline` in Linux that the output from previous filter will be as input passed to the next filter
+
+- `?uglifycss` and `?uglifyjs2` Minify css and js only in the prod environment
   
-- `ouput` Dumped filename, run `php app/console assetic:dump --env=prod` to dump asset files
+-  Use parameter `output` to explicitly specify the dump directory and filename. Defaults are `web/css/XXX.css` and `web/js/XXX.js`
 
-- `bundles/app/css/*` points to the `web` directory. See [Fixing CSS Paths with the cssrewrite Filter](http://symfony.com/doc/current/cookbook/assetic/asset_management.html#cookbook-assetic-cssrewrite)
+- `bundles/app/css/*` based in the `web` directory. Also see [Fixing CSS Paths with the cssrewrite Filter](http://symfony.com/doc/current/cookbook/assetic/asset_management.html#cookbook-assetic-cssrewrite)
 
 
 ### Process Image files
@@ -145,7 +147,7 @@ or
 ```
 It's better to process images on 3rd party CDN provider
 
-### Dump Asset files in prod environment
+### Dump Asset files in the prod environment
 
 	
 	php app/console assetic:dump --env=prod
@@ -153,7 +155,7 @@ It's better to process images on 3rd party CDN provider
 
 ### Check effects
 
-###### <http://localhost:8000/app_dev.php/>
+###### Visit <http://localhost:8000/app_dev.php/>
 View page source
 
 ```
@@ -169,7 +171,7 @@ View page source
 ```
 
 
-###### <http://localhost:8000/app.php/>
+###### Visit <http://localhost:8000/app.php/>
 View page source
 
 ```
