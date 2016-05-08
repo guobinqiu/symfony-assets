@@ -153,9 +153,11 @@ It's better to process images on 3rd party CDN provider
 	php app/console assetic:dump --env=prod
 	
 
-### Check effects
+### Check changes
 
-###### Visit <http://localhost:8000/app_dev.php/>
+    php app/console server:run
+
+###### <http://localhost:8000/app_dev.php/>
 View page source
 
 ```
@@ -171,7 +173,7 @@ View page source
 ```
 
 
-###### Visit <http://localhost:8000/app.php/>
+###### <http://localhost:8000/app.php/>
 View page source
 
 ```
