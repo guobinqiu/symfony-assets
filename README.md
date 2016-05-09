@@ -178,3 +178,64 @@ View page source
     <!-- js -->
             <script src="/assets/js/application.js"></script>
 ```
+
+
+# 最佳实践（个人观点）
+
+### 1. 不使用@XXX这种路径写法，可以避免css中引用图片不显示问题
+
+```
+	<!-- css --> 
+    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/css/application.css"
+        "@AppBundle/Resources/public/css/*"
+    %}
+        <link href="{{ asset_url }}" rel="stylesheet" />
+    {% endstylesheets %}
+
+    <!-- js -->
+    {% javascripts filter="?uglifyjs2" output="assets/js/application.js"
+        "@AppBundle/Resources/public/js/*"
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+```    
+改写成
+
+```
+    <!-- css -->
+    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/css/application.css"
+        "bundles/app/css/*"
+    %}
+        <link href="{{ asset_url }}" rel="stylesheet" />
+    {% endstylesheets %}
+    
+    <!-- js -->
+    {% javascripts filter="?uglifyjs2" output="assets/js/application.js"
+        "bundles/app/js/*"
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+ ```
+    
+### 2. 省去`php app/console assets:install`命令从src同步资源到web的操作，直接在web目录下创建资源文件目录 
+
+像下面这种结构
+
+```
+   web
+    |--- bundles
+           |--- app
+                 |--- frontend
+                        |--- css
+                        |--- fonts
+                        |--- images
+                        |--- js
+                 |--- backend
+                        |--- css
+                        |--- ronts
+                        |--- images
+                        |--- js
+           
+```
+
+### 3. 把web目录下的自定义资源文件目录纳入Github一并提交
