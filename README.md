@@ -90,17 +90,12 @@ assetic:
 - `node_modules` is an auto-generated directory while installing with NodeJS
 - `apply_to` Compiles coffeescripts(any files suffix with `.coffee`) into javascripts
 
-### Copy assets from `src` to `web` 
-Run
+### Create assets directories in the `web` directory
 
-	php app/console assets:install
-
-command to actually do the following:
-
-- src/AppBundle/Resources/public/css -> web/bundles/app/css
-- src/AppBundle/Resources/public/fonts -> web/bundles/app/fonts
-- src/AppBundle/Resources/public/images -> web/bundles/app/images
-- src/AppBundle/Resources/public/js -> web/bundles/app/js
+- web/bundles/app/css/
+- web/bundles/app/fonts/
+- web/bundles/app/images/
+- web/bundles/app/js/
 
 ### Process CSS stylesheets, JavaScript files
 
@@ -116,7 +111,7 @@ Snippet from `src/AppBundle/Resources/views/default/index.html.twig`
 
     <!-- js -->
     {% javascripts filter="?uglifyjs2" output="assets/js/application.js"
-        "@AppBundle/Resources/public/js/*"
+        "bundles/app/js/*"
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -126,11 +121,11 @@ Snippet from `src/AppBundle/Resources/views/default/index.html.twig`
 
 - `filter="cssrewrite, scssphp, ?uglifycss"` is a filter chain just like `pipeline` in Linux that the output from previous filter will be as input passed to the next filter
 
-- `?uglifycss` and `?uglifyjs2` Minify css and js only in the prod environment
-  
--  Use parameter `output` to explicitly specify the dump directory and filename. Defaults are `web/css/XXX.css` and `web/js/XXX.js`
+- `cssrewrite` [Fixing CSS Paths with the cssrewrite Filter](http://symfony.com/doc/current/cookbook/assetic/asset_management.html#cookbook-assetic-cssrewrite)
 
-- `bundles/app/css/*` based in the `web` directory. Also see [Fixing CSS Paths with the cssrewrite Filter](http://symfony.com/doc/current/cookbook/assetic/asset_management.html#cookbook-assetic-cssrewrite)
+- `?uglifycss` and `?uglifyjs2` Only minify css and js in the prod environment
+  
+-  `output` Defaults are `web/css/XXX.css` and `web/js/XXX.js`. To override default settings by explicitly specifing your dump directory and filename
 
 
 ### Process Image files
@@ -141,7 +136,7 @@ Snippet from `src/AppBundle/Resources/views/default/index.html.twig`
 or
 
 ```
-{% image "@AppBundle/Resources/public/images/bg.gif" %}
+{% image "bundles/app/images/bg.gif" %}
     <img src="{{ asset_url }}" alt="example" />
 {% endimage %}
 ```

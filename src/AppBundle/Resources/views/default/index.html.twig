@@ -18,7 +18,7 @@
 
     <!-- js -->
     {% javascripts filter="?uglifyjs2" output="assets/js/application.js"
-        "@AppBundle/Resources/public/js/*"
+        "bundles/app/js/*"
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
