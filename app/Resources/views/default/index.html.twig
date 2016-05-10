@@ -2,15 +2,6 @@
 
 {% block title %}index.html.twig{% endblock %}
 
-{% block my_css %}
-    <!-- css -->
-    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/css/application.css"
-    "bundles/app/css/*"
-    %}
-    <link href="{{ asset_url }}" rel="stylesheet" />
-    {% endstylesheets %}
-{% endblock %}
-
 {% block body %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
@@ -41,13 +32,4 @@
             </div>
         </div>
     </div> <!-- /container -->
-{% endblock %}
-
-{% block my_js %}
-    <!-- js -->
-    {% javascripts filter="?uglifyjs2" output="assets/js/application.js"
-    "bundles/app/js/*"
-    %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
 {% endblock %}

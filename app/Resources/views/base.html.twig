@@ -8,9 +8,13 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock %}
 
-        {% block global_css %}{% endblock %}
-
-        {% block my_css %}{% endblock %}
+        {% block css %}
+            {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/css/application.css"
+                "bundles/app/css/*"
+            %}
+            <link href="{{ asset_url }}" rel="stylesheet" />
+            {% endstylesheets %}
+        {% endblock %}
     </head>
 
     <body>
@@ -24,8 +28,13 @@
             {% include 'partials/footer.html.twig' %}
         {% endblock %}
 
-        {% block global_js %}{% endblock %}
-
-        {% block my_js %}{% endblock %}
+        {% block js %}
+            <!-- js -->
+            {% javascripts filter="?uglifyjs2" output="assets/js/application.js"
+                "bundles/app/js/*"
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>
