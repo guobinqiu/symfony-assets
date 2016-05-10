@@ -24,14 +24,14 @@ How the Symfony Assetic Bundle works for your assets
 > http://symfony.cn/docs/cookbook/assetic/uglifyjs.html
 
 
-### Install UglifyJS
+### Install UglifyJS (local installation)
 ```
 cd /path/to/your/symfony/project
 npm install uglify-js --prefix app/Resources
 ```
 Option `--prefix` indicates the UglifyJs to be installed to `app/Resources/node_modules/uglify-js` folder
 
-### Install UglifyCSS
+### Install UglifyCSS (local installation)
 
 ```
 cd /path/to/your/symfony/project
@@ -99,19 +99,18 @@ assetic:
 
 ### Process CSS stylesheets, JavaScript files
 
-Snippet from `src/AppBundle/Resources/views/default/index.html.twig`
 
 ```
    <!-- css -->
-    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/css/application.css"
-        "bundles/app/css/*"
+    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/css/frontend/application.css"
+        "bundles/app/css/frontend/*"
     %}
         <link href="{{ asset_url }}" rel="stylesheet" />
     {% endstylesheets %}
 
     <!-- js -->
-    {% javascripts filter="?uglifyjs2" output="assets/js/application.js"
-        "bundles/app/js/*"
+    {% javascripts filter="?uglifyjs2" output="assets/js/frontend/application.js"
+        "bundles/app/js/frontend/*"
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -125,18 +124,18 @@ Snippet from `src/AppBundle/Resources/views/default/index.html.twig`
 
 - `?uglifycss` and `?uglifyjs2` Only minify css and js in the prod environment
   
--  `output` Defaults are `web/css/XXX.css` and `web/js/XXX.js`. To override default settings by explicitly specifing your dump directory and filename
+-  `output` Defaults are `web/css/XXX.css` and `web/js/XXX.js`. To override default settings by explicitly specifying your directory and filename
 
 
 ### Process Image files
 
 
-	<img src="{{ asset('bundles/app/images/bg.gif') }}" />
+	<img src="{{ asset('bundles/app/images/frontend/bg.gif') }}" />
 
 or
 
 ```
-{% image "bundles/app/images/bg.gif" %}
+{% image "bundles/app/images/frontend/bg.gif" %}
     <img src="{{ asset_url }}" alt="example" />
 {% endimage %}
 ```
@@ -148,7 +147,7 @@ It's better to process images on 3rd party CDN provider
 	php app/console assetic:dump --env=prod
 	
 
-### Check changes
+### Check Effects
 
     php app/console server:run
 
@@ -157,14 +156,14 @@ View page source
 
 ```
     <!-- css -->
-            <link href="/app_dev.php/assets/css/application_part_1_bootstrap-theme_1.css" rel="stylesheet" />
-            <link href="/app_dev.php/assets/css/application_part_1_bootstrap_2.css" rel="stylesheet" />
-            <link href="/app_dev.php/assets/css/application_part_1_test_3.css" rel="stylesheet" />
+            <link href="/app_dev.php/assets/app/css/frontend/application_part_1_bootstrap-theme_1.css" rel="stylesheet" />
+            <link href="/app_dev.php/assets/app/css/frontend/application_part_1_bootstrap_2.css" rel="stylesheet" />
+            <link href="/app_dev.php/assets/app/css/frontend/application_part_1_test_3.css" rel="stylesheet" />
     
     <!-- js -->
-            <script src="/app_dev.php/assets/js/application_part_1_bootstrap_1.js"></script>
-            <script src="/app_dev.php/assets/js/application_part_1_npm_2.js"></script>
-            <script src="/app_dev.php/assets/js/application_part_1_test_3.js"></script>
+            <script src="/app_dev.php/assets/app/js/frontend/application_part_1_bootstrap_1.js"></script>
+            <script src="/app_dev.php/assets/app/js/frontend/application_part_1_npm_2.js"></script>
+            <script src="/app_dev.php/assets/app/js/frontend/application_part_1_test_3.js"></script>
 ```
 
 
@@ -173,10 +172,10 @@ View page source
 
 ```
     <!-- css -->
-            <link href="/assets/css/application.css" rel="stylesheet" />
+            <link href="/assets/app/css/frontend/application.css" rel="stylesheet" />
     
     <!-- js -->
-            <script src="/assets/js/application.js"></script>
+            <script src="/assets/app/js/frontend/application.js"></script>
 ```
 
 
@@ -203,39 +202,48 @@ View page source
 
 ```
     <!-- css -->
-    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/css/application.css"
-        "bundles/app/css/*"
+    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+        "bundles/app/css/frontend/*"
     %}
         <link href="{{ asset_url }}" rel="stylesheet" />
     {% endstylesheets %}
     
     <!-- js -->
-    {% javascripts filter="?uglifyjs2" output="assets/js/application.js"
-        "bundles/app/js/*"
+    {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+        "bundles/app/js/frontend/*"
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
  ```
     
-### 2. 省去`php app/console assets:install`命令从src同步资源到web的操作，直接在web目录下创建资源文件目录 
+### 2. 直接在web目录下创建资源文件目录，省去通过`php app/console assets:install`命令把src目录下的资源文件同步到web目录的操作
 
-像下面这种结构
+推荐目录结构如下
 
 ```
    web
     |--- bundles
            |--- app
-                 |--- frontend
-                        |--- css
-                        |--- fonts
-                        |--- images
-                        |--- js
-                 |--- backend
-                        |--- css
-                        |--- ronts
-                        |--- images
-                        |--- js
+                 |--- css
+                       |--- backend
+                       |--- frontend
+                       |--- ...
+                       
+                 |--- fonts
+                       |--- backend
+                       |--- frontend
+                       |--- ...
+                       
+                 |--- images
+                       |--- backend
+                       |--- frontend
+                       |--- ...
+                       
+                 |--- js
+                       |--- backend
+                       |--- frontend
+                       |--- ...
            
 ```
 
-### 3. 把web目录下的自定义资源文件目录纳入Github一并提交
+### 3. 把web目录下的资源文件目录纳入Git一并提交

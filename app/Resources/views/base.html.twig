@@ -9,8 +9,8 @@
         {% endblock %}
 
         {% block css %}
-            {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/css/application.css"
-                "bundles/app/css/*"
+            {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+                "bundles/app/css/frontend/*"
             %}
             <link href="{{ asset_url }}" rel="stylesheet" />
             {% endstylesheets %}
@@ -30,8 +30,8 @@
 
         {% block js %}
             <!-- js -->
-            {% javascripts filter="?uglifyjs2" output="assets/js/application.js"
-                "bundles/app/js/*"
+            {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+                "bundles/app/js/frontend/*"
             %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
