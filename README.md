@@ -185,15 +185,15 @@ View page source
 
 ```
 	<!-- css --> 
-    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/css/application.css"
-        "@AppBundle/Resources/public/css/*"
+    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+        "@AppBundle/Resources/public/css/frontend/*"
     %}
         <link href="{{ asset_url }}" rel="stylesheet" />
     {% endstylesheets %}
 
     <!-- js -->
-    {% javascripts filter="?uglifyjs2" output="assets/js/application.js"
-        "@AppBundle/Resources/public/js/*"
+    {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+        "@AppBundle/Resources/public/js/frontend/*"
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
