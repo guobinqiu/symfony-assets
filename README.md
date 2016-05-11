@@ -207,6 +207,7 @@ View page source
 ```
     <!-- css -->
     {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+        "bundles/app/css/common/*"
         "bundles/app/css/frontend/*"
     %}
         <link href="{{ asset_url }}" rel="stylesheet" />
@@ -214,6 +215,7 @@ View page source
     
     <!-- js -->
     {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+        "bundles/app/js/common/*"
         "bundles/app/js/frontend/*"
     %}
         <script src="{{ asset_url }}"></script>
