@@ -10,30 +10,32 @@
 
         {% block css %}
             {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+                "bundles/app/css/common/*"
                 "bundles/app/css/frontend/*"
             %}
-            <link href="{{ asset_url }}" rel="stylesheet" />
+                <link href="{{ asset_url }}" rel="stylesheet" />
             {% endstylesheets %}
         {% endblock %}
     </head>
 
     <body>
         {% block header %}
-            {% include 'partials/header.html.twig' %}
+            {% include 'frontend/_header.html.twig' %}
         {% endblock %}
 
         {% block body %}{% endblock %}
 
         {% block footer %}
-            {% include 'partials/footer.html.twig' %}
+            {% include 'frontend/_footer.html.twig' %}
         {% endblock %}
 
         {% block js %}
             <!-- js -->
             {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+                "bundles/app/js/common/*"
                 "bundles/app/js/frontend/*"
             %}
-            <script src="{{ asset_url }}"></script>
+                <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
     </body>

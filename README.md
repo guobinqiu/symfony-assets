@@ -103,6 +103,7 @@ assetic:
 ```
    <!-- css -->
     {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+        "bundles/app/css/common/*"
         "bundles/app/css/frontend/*"
     %}
         <link href="{{ asset_url }}" rel="stylesheet" />
@@ -110,6 +111,7 @@ assetic:
 
     <!-- js -->
     {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+        "bundles/app/js/common/*"
         "bundles/app/js/frontend/*"
     %}
         <script src="{{ asset_url }}"></script>
@@ -186,6 +188,7 @@ View page source
 ```
 	<!-- css --> 
     {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+        "@AppBundle/Resources/public/css/common/*"
         "@AppBundle/Resources/public/css/frontend/*"
     %}
         <link href="{{ asset_url }}" rel="stylesheet" />
@@ -193,6 +196,7 @@ View page source
 
     <!-- js -->
     {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+        "@AppBundle/Resources/public/js/common/*"
         "@AppBundle/Resources/public/js/frontend/*"
     %}
         <script src="{{ asset_url }}"></script>
@@ -225,21 +229,19 @@ View page source
     |--- bundles
            |--- app
                  |--- css
-                       |--- backend
-                       |--- frontend
-                       |--- ...
-                       
-                 |--- fonts
+                       |--- common
                        |--- backend
                        |--- frontend
                        |--- ...
                        
                  |--- images
+                       |--- common
                        |--- backend
                        |--- frontend
                        |--- ...
-                       
+
                  |--- js
+                       |--- common
                        |--- backend
                        |--- frontend
                        |--- ...
