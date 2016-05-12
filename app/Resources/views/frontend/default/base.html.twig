@@ -1,0 +1,19 @@
+{% extends 'frontend/base.html.twig' %}
+
+{% block my_css %}
+    <!-- my css -->
+    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/default.css"
+        "bundles/app/css/frontend/default.scss"
+    %}
+        <link href="{{ asset_url }}" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block my_js %}
+    <!-- my js -->
+    {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/default.js"
+        "bundles/app/js/frontend/default.coffee"
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

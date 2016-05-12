@@ -101,18 +101,16 @@ assetic:
 
 
 ```
-   <!-- css -->
-    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+   <!-- global css -->
+    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/common.css"
         "bundles/app/css/common/*"
-        "bundles/app/css/frontend/*"
     %}
         <link href="{{ asset_url }}" rel="stylesheet" />
     {% endstylesheets %}
 
-    <!-- js -->
-    {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+    <!-- global js -->
+    {% javascripts filter="?uglifyjs2" output="assets/app/js/common.js"
         "bundles/app/js/common/*"
-        "bundles/app/js/frontend/*"
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -132,12 +130,12 @@ assetic:
 ### Process Image files
 
 
-	<img src="{{ asset('bundles/app/images/frontend/bg.gif') }}" />
+	<img src="{{ asset('bundles/app/images/bg.gif') }}" />
 
 or
 
 ```
-{% image "bundles/app/images/frontend/bg.gif" %}
+{% image "bundles/app/images/bg.gif" %}
     <img src="{{ asset_url }}" alt="example" />
 {% endimage %}
 ```
@@ -157,15 +155,19 @@ It's better to process images on 3rd party CDN provider
 View page source
 
 ```
-    <!-- css -->
-            <link href="/app_dev.php/assets/app/css/frontend/application_part_1_bootstrap-theme_1.css" rel="stylesheet" />
-            <link href="/app_dev.php/assets/app/css/frontend/application_part_1_bootstrap_2.css" rel="stylesheet" />
-            <link href="/app_dev.php/assets/app/css/frontend/application_part_1_test_3.css" rel="stylesheet" />
-    
-    <!-- js -->
-            <script src="/app_dev.php/assets/app/js/frontend/application_part_1_bootstrap_1.js"></script>
-            <script src="/app_dev.php/assets/app/js/frontend/application_part_1_npm_2.js"></script>
-            <script src="/app_dev.php/assets/app/js/frontend/application_part_1_test_3.js"></script>
+     <!-- global css -->
+     <link href="/app_dev.php/assets/app/css/common_part_1_bootstrap-theme_1.css" rel="stylesheet" />
+     <link href="/app_dev.php/assets/app/css/common_part_1_bootstrap_2.css" rel="stylesheet" />
+                      
+     <!-- my css -->
+     <link href="/app_dev.php/assets/app/css/frontend/default_default_1.css" rel="stylesheet" />
+     
+     <!-- global js -->
+     <script src="/app_dev.php/assets/app/js/common_part_1_bootstrap_1.js"></script>
+     <script src="/app_dev.php/assets/app/js/common_part_1_npm_2.js"></script>
+                                    
+     <!-- my js -->
+     <script src="/app_dev.php/assets/app/js/frontend/default_default_1.js"></script>
 ```
 
 
@@ -173,11 +175,17 @@ View page source
 View page source
 
 ```
-    <!-- css -->
-            <link href="/assets/app/css/frontend/application.css" rel="stylesheet" />
+    <!-- global css -->
+    <link href="/assets/app/css/common.css" rel="stylesheet" />
+
+    <!-- my css -->
+    <link href="/assets/app/css/frontend/default.css" rel="stylesheet" />
     
-    <!-- js -->
-            <script src="/assets/app/js/frontend/application.js"></script>
+    <!-- global js -->
+    <script src="/assets/app/js/common.js"></script>
+                        
+    <!-- my js -->
+    <script src="/assets/app/js/frontend/default.js"></script>
 ```
 
 
@@ -187,39 +195,27 @@ View page source
 
 ```
 	<!-- css --> 
-    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss"
         "@AppBundle/Resources/public/css/common/*"
-        "@AppBundle/Resources/public/css/frontend/*"
     %}
-        <link href="{{ asset_url }}" rel="stylesheet" />
-    {% endstylesheets %}
 
     <!-- js -->
-    {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+    {% javascripts filter="?uglifyjs2"
         "@AppBundle/Resources/public/js/common/*"
-        "@AppBundle/Resources/public/js/frontend/*"
     %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
 ```    
 改写成
 
 ```
     <!-- css -->
-    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+    {% stylesheets filter="cssrewrite, scssphp, ?uglifycss"
         "bundles/app/css/common/*"
-        "bundles/app/css/frontend/*"
     %}
-        <link href="{{ asset_url }}" rel="stylesheet" />
-    {% endstylesheets %}
     
     <!-- js -->
-    {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+    {% javascripts filter="?uglifyjs2"
         "bundles/app/js/common/*"
-        "bundles/app/js/frontend/*"
     %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
  ```
     
 ### 2. 直接在web目录下创建资源文件目录，省去通过`php app/console assets:install`命令把src目录下的资源文件同步到web目录的操作

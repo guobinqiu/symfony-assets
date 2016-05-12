@@ -8,14 +8,16 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock %}
 
-        {% block css %}
-            {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/frontend/application.css"
+        {% block global_css %}
+            <!-- global css -->
+            {% stylesheets filter="cssrewrite, scssphp, ?uglifycss" output="assets/app/css/common.css"
                 "bundles/app/css/common/*"
-                "bundles/app/css/frontend/*"
             %}
                 <link href="{{ asset_url }}" rel="stylesheet" />
             {% endstylesheets %}
         {% endblock %}
+
+        {% block my_css %}{% endblock %}
     </head>
 
     <body>
@@ -29,14 +31,15 @@
             {% include 'frontend/_footer.html.twig' %}
         {% endblock %}
 
-        {% block js %}
-            <!-- js -->
-            {% javascripts filter="?uglifyjs2" output="assets/app/js/frontend/application.js"
+        {% block global_js %}
+            <!-- global js -->
+            {% javascripts filter="?uglifyjs2" output="assets/app/js/common.js"
                 "bundles/app/js/common/*"
-                "bundles/app/js/frontend/*"
             %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
+
+        {% block my_js %}{% endblock %}
     </body>
 </html>
