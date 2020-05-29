@@ -1,6 +1,7 @@
-#AsseticDemo
+Symfony Assets
+---
 
-How the Symfony Assetic Bundle works for your assets
+How the Symfony Assetic Bundle works for your assets?
 
 3 targets:
 
@@ -8,30 +9,31 @@ How the Symfony Assetic Bundle works for your assets
 - Minify (multiple lines -> one line) 
 - Combine (1.css 2.css 3.css ... -> main.css, 1.js 2.js 3.js ... -> main.js)
 
-## Create a new empty symfony project
+### Create an empty project
 
 	symfony new AsseticDemo 2.3
 
 (**2.3** is my symfony version)
 
-## Install NodeJS
+### Install NodeJS
 
 > https://nodejs.org/en/
 
 
-## Install other toolkits via NodeJS
+### Install other toolkits via NodeJS
 
 > http://symfony.cn/docs/cookbook/assetic/uglifyjs.html
 
 
-### Install UglifyJS (local installation)
+### Install UglifyJS
+
 ```
 cd /path/to/your/symfony/project
 npm install uglify-js --prefix app/Resources
 ```
 Option `--prefix` indicates the UglifyJs to be installed to `app/Resources/node_modules/uglify-js` folder
 
-### Install UglifyCSS (local installation)
+### Install UglifyCSS
 
 ```
 cd /path/to/your/symfony/project
@@ -39,8 +41,7 @@ npm install uglifycss --prefix app/Resources
 ```
 Option `--prefix` indicates the UglifyCSS to be installed to `app/Resources/node_modules/uglifycss` folder
 
-### Install [CoffeeScript](http://coffeescript.org/) (local installation)
-
+### Install [CoffeeScript](http://coffeescript.org/)
 ```
 cd /path/to/your/symfony/project
 npm install coffee-script --prefix app/Resources
@@ -54,7 +55,7 @@ Option `--prefix` indicates the CoffeeScript to be installed to `app/Resources/n
 
 scssphp is a compiler for [SCSS](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#css_extensions) written in PHP. 
 
-### Configure Assetic
+### Assets configuration
 
 In the `app/config/config.yml`
 
@@ -97,8 +98,7 @@ assetic:
 - web/bundles/app/images/
 - web/bundles/app/js/
 
-### Process CSS stylesheets, JavaScript files
-
+### Process CSS stylesheets & JavaScript files
 
 ```
    <!-- global css -->
@@ -127,10 +127,9 @@ assetic:
 -  `output` Defaults are `web/css/XXX.css` and `web/js/XXX.js`. To override default settings by explicitly specifying your directory and filename
 
 
-### Process Image files
+### Process image files
 
-
-	<img src="{{ asset('bundles/app/images/bg.gif') }}" />
+```<img src="{{ asset('bundles/app/images/bg.gif') }}" />```
 
 or
 
@@ -139,19 +138,19 @@ or
     <img src="{{ asset_url }}" alt="example" />
 {% endimage %}
 ```
+
 It's better to process images on 3rd party CDN provider
 
-### Dump Asset files in the prod environment
-
+### Dump asset files in the prod environment
 	
 	php app/console assetic:dump --env=prod
 	
-
 ### Check Effects
 
     php app/console server:run
 
-###### <http://localhost:8000/app_dev.php/>
+<http://localhost:8000/app_dev.php/>
+
 View page source
 
 ```
@@ -170,8 +169,8 @@ View page source
      <script src="/app_dev.php/assets/app/js/frontend/default_default_1.js"></script>
 ```
 
+<http://localhost:8000/app.php/>
 
-###### <http://localhost:8000/app.php/>
 View page source
 
 ```
@@ -187,7 +186,6 @@ View page source
     <!-- my js -->
     <script src="/assets/app/js/frontend/default.js"></script>
 ```
-
 
 # 最佳实践（个人观点）
 
@@ -216,7 +214,7 @@ View page source
     {% javascripts filter="?uglifyjs2"
         "bundles/app/js/common/*"
     %}
- ```
+```
     
 ### 2. 直接在web目录下创建资源文件目录，省去通过`php app/console assets:install`命令把src目录下的资源文件同步到web目录的操作
 
